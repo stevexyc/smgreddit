@@ -1,0 +1,154 @@
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+  <title>Questions</title>
+</head>
+
+<body>
+  {{> app}}
+</body>
+
+<template name="app">
+  <div class="container" style="max-width:500px;">
+    <div id="topbar">
+      <div class="pull-right">{{loginButtons}}</div>
+    </div>
+    <hr>
+
+    <div class='box text-center'>
+      <h1>Join a Session</h1>
+      Session ID:
+      <div class="input-append">
+        <input type='text' style="width:80px;"/>
+        <button id="joinSession" type="button" class='btn'>Go</button>
+      </div>
+    </div>
+
+    <div class='box text-center'>
+      <h1>Create a Session</h1>
+      {{#if currentUser}}
+        <hr>
+          <p>Title of topic: </p>
+          <input id="sessionTitle" type="text" style="margin:0;"/>
+        <hr>
+        <button id="createSession" type="button" class="btn">Create</button><br>
+        <span style="color:red; font-size:12px;" id="error"></span>
+      {{else}}
+        Sign in to create a session
+      {{/if}}
+    </div>
+
+    {{#if currentUser}}
+    <div class="box text-center">
+      <h3>Your Active Sessions</h3>
+      <table class="table table-bordered">
+        {{#each yourSession}}
+          <tr>
+            <td>{{title}}</td>
+            <td>{{sessionId}}</td>
+            <td><button type="button" class="btn deleteSession">Delete</button></td>
+          </tr>
+        {{/each}}
+      </table>
+    </div>
+    {{/if}}
+
+  </div>  
+  {{#if approved}}
+    {{> list}}
+  {{/if}}
+</template>
+
+<template name="list">
+	<div id="topbar">
+		<!-- <span>Steve's sxc app</span> -->
+		<img src="SMG_LOGO.png" alt="SMG" width="188px" style="padding: 2px;">
+		<div class="btn-group topmenu">
+			<button class="btn {{popular}}" id ="showPopular">Popular</button>
+			<button class="btn {{recent}}" id="showRecent">Recent</button>
+  		<button class="btn hidden-phone">{{loginButtons align="right"}}</button>
+		</div>
+	</div>
+	<!-- <hr> -->
+		<div id="tagmenu" class="btn-group hidden-phone">
+			<button class="btn default">All Questions</button>
+			{{#each topics}}
+				<button class="btn menutag">{{this.tag}} {{this.count}}</button>
+			{{/each}}
+		</div>
+
+  	<table id="mainlist" class="table table-bordered">
+  	{{#each item}}
+  		<tr>
+  			<td class="totalvotes">
+  				<button class="upvote">
+	  				<div class="arrow {{ifchecked}}"></div>
+	  				<div style="width:28px;"><center><span style="font-weight:bold;font-size:18px;">{{votes}}</span><br><span style="font-size:13px;color:#929aa6;">votes</span></center></div>
+	  				<div></div>
+  				</button>
+  			</td>
+  			<td style="vertical-align:middle;font-size:1.1em;">
+  				{{#if editing}}
+  					<input type="text" id="questionEdit" class="span5" value="{{question}}">
+  				{{else}}
+  					<span class="questionText {{#if answered}}muted{{/if}}">{{question}}</span>
+  				{{/if}}
+          <!-- Moderator Section -->
+  				{{#if moderator}}
+  					<button class="close delete" style="margin-left:25px;"><i class="icon-remove"></i></button>
+  					<button class="close answered"><i class="icon-ok"></i></button>
+  					<button class="close addtag" style="margin-right: 25px;"><i class="icon-plus"></i></button>
+  					{{#if addingtag}}
+  						<input id="addtag" class="pull-right span2" type='text' style="height:12px; margin-right:10px;" value="{{this.tags}}">
+  					{{/if}}
+  				{{/if}}
+          <!-- End Moderator -->
+  				{{#each tags}}
+  					<div class="label hidden-phone pull-right" style="margin-right:10px;">{{this}}</div>
+  				{{/each}}
+        </td>
+        <td class="more-info" style="vertical-align:middle;text-align:center;">
+          <button class="comments showComments"><i class="icon-comment" style="opacity: 0.4;"></i>{{commentCount}}</button>
+        </td>
+  		</tr>
+  	{{/each}}
+  	</table>
+  	{{#if adminOnly}}
+  		<hr>
+  		<div>Admin Only</div>
+  		<button id="export">Download All Records</button>
+  		<button id="clear">Delete Records</button>
+  		<br><br>
+  	{{/if}}
+  	<div id="eraseMe" style="height: 49px;"></div>
+  <div id="submitbox" class="input-append span12">
+		<textarea name="input" id="inputquestion" cols="30" rows="2"></textarea>
+		<button type="button" class="btn" id="submitquestion">Ask!</button>
+	</div>
+  <!-- Modal -->
+  {{>commentModal}}
+</template>
+
+<template name="commentModal">
+  <div class="modal {{HideModal}}" id="myModal">
+    <div class="modal-header">
+      <button type="button" class="close hideComment" data-dismiss="modal" aria-hidden="true">&times;</button>
+      <strong>{{Header.question}}</strong>
+    </div>
+    <div class="modal-body">
+      {{#each Header.comments}}
+          <div class="comment-list">{{this}}
+          {{#if moderator}}
+            <button type='button' class='close deletecomment'>&times;</button>
+          {{/if}}
+          </div>
+      {{/each}}
+      <div class="input-append">
+        <input id="inputcomment" type='text'>
+        <button type="button" id="addComment" class="btn">comment</button>
+      </div>
+    </div>
+    <!-- <div class="modal-footer">
+    </div> -->
+  </div>
+</template> 
