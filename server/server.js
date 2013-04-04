@@ -1,3 +1,5 @@
+var comments = new Meteor.Collection('Comments')
+
 Meteor.startup(function(){
     var admin = Meteor.users.findOne({username: "admin"});
     if ((admin === undefined) || (admin === 'undefined')) {

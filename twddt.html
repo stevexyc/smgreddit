@@ -5,59 +5,8 @@
 </head>
 
 <body>
-  {{> app}}
+  {{> list}}
 </body>
-
-<template name="app">
-  <div class="container" style="max-width:500px;">
-    <div id="topbar">
-      <div class="pull-right">{{loginButtons}}</div>
-    </div>
-    <hr>
-
-    <div class='box text-center'>
-      <h1>Join a Session</h1>
-      Session ID:
-      <div class="input-append">
-        <input type='text' style="width:80px;"/>
-        <button id="joinSession" type="button" class='btn'>Go</button>
-      </div>
-    </div>
-
-    <div class='box text-center'>
-      <h1>Create a Session</h1>
-      {{#if currentUser}}
-        <hr>
-          <p>Title of topic: </p>
-          <input id="sessionTitle" type="text" style="margin:0;"/>
-        <hr>
-        <button id="createSession" type="button" class="btn">Create</button><br>
-        <span style="color:red; font-size:12px;" id="error"></span>
-      {{else}}
-        Sign in to create a session
-      {{/if}}
-    </div>
-
-    {{#if currentUser}}
-    <div class="box text-center">
-      <h3>Your Active Sessions</h3>
-      <table class="table table-bordered">
-        {{#each yourSession}}
-          <tr>
-            <td>{{title}}</td>
-            <td>{{sessionId}}</td>
-            <td><button type="button" class="btn deleteSession">Delete</button></td>
-          </tr>
-        {{/each}}
-      </table>
-    </div>
-    {{/if}}
-
-  </div>  
-  {{#if approved}}
-    {{> list}}
-  {{/if}}
-</template>
 
 <template name="list">
 	<div id="topbar">

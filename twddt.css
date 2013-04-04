@@ -6,21 +6,6 @@ body {
     margin: 0;
 }
 
-h1, h2,h3 {font-weight: 300;}
-
-.box {
-    margin-top: 5px;
-    background: #f7f7f7;
-    border: 1px solid #efefef;
-    font-size: 20px;
-    padding: 20px;
-}
-
-.box td {
-    text-align: center;
-    vertical-align: middle;
-}
-
 #topbar {
     height: 28px;
     position: relative;
