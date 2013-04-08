@@ -1,70 +1,74 @@
 body {
-    background: #fff;
+    background: #f7f7f7;
     font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif; 
     font-weight: 300;
-    padding: 0;
-    margin: 0;
+    padding: 5px;
 }
 
 #topbar {
-    height: 28px;
     position: relative;
-    border-bottom: 1px solid #ccc;
-    background: #f8f8f8;
-    /*overflow: visible;*/
+    padding-bottom: 10px;
+    border-bottom: 1px solid lightgrey;
+    /*overflow: hidden;*/
 }
-
 #topbar .topmenu {
-    position: absolute;
-    right: 0px;
+    float: right;
+}
+#topbar .topmenu button {
+    padding: 4px 8px;
+    font-size: 12px;
 }
 
 #inputquestion {
-	width: 80%;
-	height: 37px;
-	padding: 5px;
-	resize: none;
-	font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif; 
+    width: 80%;
+    height: 37px;
+    padding: 5px;
+    resize: none;
+    font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif; 
     font-weight: 300;
     font-size: 12px;
-    border-radius: 0px;
-    border-top: 1px solid #727272;
-    /*border: 1px solid #727272;*/
+    border-radius: 5px 0 0 5px;
+    border: 1px solid #727272;
     margin-bottom: 0;
 }
 
 #submitquestion {
+    width: 15%;
     height: 49px;
-    width: 20%;
     margin-left: -1px;
     padding: 5px;
     font-size: 15px;
     background: #2794bb;
     color: #fff;
-    border-radius:0;
+    border-radius: 0 5px 5px 0;
     border: 0px;
 }
 #submitbox {
     position: fixed;
-    width: 100%;
-    bottom: 0;
+    width: 99%;
+    bottom: 3px;
     margin: 0;
     padding: 0;
 }
 
-.btn-group>.btn:first-child, .btn-group>.btn:last-child {
-    border-radius: 0;
+.sort {
+    padding: 5px;
+    /*font-size: 12px;*/
+    border-radius: 5px;
+    cursor: pointer;
 }
-.btn-group>.btn {
-    font-size: 12px;
-    padding: 4px 10px;
-    background-image: none;
-    border-top: 0;
-    border-bottom: 0;
+
+#tagmenu {
+    padding: 5px 0;
+    margin: 0;
+}
+#tagmenu button {
+    padding: 5px 10px;
+    margin-bottom: 3px;
 }
 
 .toggle_selected {
-    background-color: #efefef;
+    background: lightgrey;
 }
 
 .input-append {
@@ -76,8 +80,18 @@ body {
     padding: 10px;
 }
 
+.btns {
+    /*background: #eff7ff;*/
+    float: left;
+    margin-right: 10px;
+}
+
+.btns img {
+    width: 15px;
+}
+
 .checked {
-	opacity: 0.5;
+    opacity: 0.5;
 }
 
 .count {
@@ -86,17 +100,25 @@ body {
 }
 
 #mainlist {
-    border-radius: 0;
-    margin: 0;
-}
-#mainlist td {
-    border-radius: 0;
+    list-style: none;
+    margin: 0px;
+    /*margin: 0 0 55px 0;*/
+    padding: 0;
 }
 
-a#login-sign-in-link {
+#mainlist li {
+    background: #f7f7f7;
+    margin: 5px 0;
+    padding: 10px 5px;
+    border-bottom: 1px dashed gray;
+    overflow: hidden;
+    /*border-radius: 5px;*/
+}
+
+#login-sign-in-link {
     font-size: 10px;
-    text-decoration: none;
-    color: black;
+    height: 32px;
+    width: 32px;
 }
 
 .muted {
@@ -155,4 +177,3 @@ a#login-sign-in-link {
     padding: 10px 10px 10px 20px;
     border-bottom: 1px solid #eee
 }
-

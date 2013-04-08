@@ -11,7 +11,7 @@
 <template name="list">
 	<div id="topbar">
 		<!-- <span>Steve's sxc app</span> -->
-		<img src="SMG_LOGO.png" alt="SMG" width="188px" style="padding: 2px;">
+		<img src="SMG_LOGO.png" alt="SMG" width="180px" style="padding: 2px;">
 		<div class="btn-group topmenu">
 			<button class="btn {{popular}}" id ="showPopular">Popular</button>
 			<button class="btn {{recent}}" id="showRecent">Recent</button>
@@ -19,10 +19,10 @@
 		</div>
 	</div>
 	<!-- <hr> -->
-		<div id="tagmenu" class="btn-group hidden-phone">
-			<button class="btn default">All Questions</button>
+		<div id="tagmenu" class="btn-toolbar hidden-phone">
+			<button class="btn btn-info default">All Questions</button>
 			{{#each topics}}
-				<button class="btn menutag">{{this.tag}} {{this.count}}</button>
+				<button class="btn btn-info menutag">{{this.tag}} {{this.count}}</button>
 			{{/each}}
 		</div>
 
@@ -56,9 +56,6 @@
   					<div class="label hidden-phone pull-right" style="margin-right:10px;">{{this}}</div>
   				{{/each}}
         </td>
-        <td class="more-info" style="vertical-align:middle;text-align:center;">
-          <button class="comments showComments"><i class="icon-comment" style="opacity: 0.4;"></i>{{commentCount}}</button>
-        </td>
   		</tr>
   	{{/each}}
   	</table>
@@ -69,35 +66,10 @@
   		<button id="clear">Delete Records</button>
   		<br><br>
   	{{/if}}
-  	<div id="eraseMe" style="height: 49px;"></div>
+  	<div id="eraseMe" style="height: 55px;"></div>
   <div id="submitbox" class="input-append span12">
 		<textarea name="input" id="inputquestion" cols="30" rows="2"></textarea>
 		<button type="button" class="btn" id="submitquestion">Ask!</button>
 	</div>
-  <!-- Modal -->
-  {{>commentModal}}
+  
 </template>
-
-<template name="commentModal">
-  <div class="modal {{HideModal}}" id="myModal">
-    <div class="modal-header">
-      <button type="button" class="close hideComment" data-dismiss="modal" aria-hidden="true">&times;</button>
-      <strong>{{Header.question}}</strong>
-    </div>
-    <div class="modal-body">
-      {{#each Header.comments}}
-          <div class="comment-list">{{this}}
-          {{#if moderator}}
-            <button type='button' class='close deletecomment'>&times;</button>
-          {{/if}}
-          </div>
-      {{/each}}
-      <div class="input-append">
-        <input id="inputcomment" type='text'>
-        <button type="button" id="addComment" class="btn">comment</button>
-      </div>
-    </div>
-    <!-- <div class="modal-footer">
-    </div> -->
-  </div>
-</template> 

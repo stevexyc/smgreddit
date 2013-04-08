@@ -4,7 +4,6 @@ upvotes = []
 
 Meteor.startup ->
 	cookies = document.cookie.split(';')
-	# document.cookie.replace('upvotes=', '')
 	for x in cookies
 		names = x.split('=')
 		value = names[0].trim()
@@ -27,7 +26,6 @@ Template.list.topics = ->
 		{ tag: tag, count: count }
 	tag_infos = _.sortBy tag_infos, (x) -> x.count
 	tag_infos.reverse()
-	# tag_infos.unshift { tag: null, count: total_count }
 	return tag_infos
 
 Template.list.item = ->
@@ -72,24 +70,18 @@ Template.list.answered = ->
 Template.list.addingtag = ->
 	Session.equals 'addingtag', this._id
 
-Template.list.commentCount = ->
-	this.comments.length
-
 Template.list.events {
 	'click #submitquestion': (e,t) ->
 		Ask(e,t)
 
 	'focusin #inputquestion': (e,t) ->
 		if /Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(navigator.userAgent)
-			$('html,body').animate({
-			        scrollTop: $(document).height()
-			   })
-			$('#eraseMe').css('height','0px')
+			$('#eraseMe').css('height','5px')
 			$('#submitbox').css('position','relative')
 
 	'focusout #inputquestion':(e,t) ->
 		if /Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(navigator.userAgent)
-			$('#eraseMe').css('height','49px')
+			$('#eraseMe').css('height','55px')
 			$('#submitbox').css('position','fixed')
 
 	'keyup #inputquestion': (e,t) ->
@@ -168,40 +160,11 @@ Template.list.events {
 }
 
 
-Template.commentModal.HideModal = ->
-	Session.get 'showModal'
-
-Template.commentModal.Header = ->
-	id = Session.get 'commentID'
-	comments.findOne(id)
-
-Template.commentModal.moderator = ->
-	if Meteor.user()?
-		adminUser Meteor.userId()
-
-Template.commentModal.events {
-	'click .hideComment': (e,t) ->
-		Session.set 'showModal', 'hide'
-
-	'click #addComment': (e,t) ->
-		id = Session.get 'commentID'
-		Comment(e,t,id)
-
-	'keyup #inputcomment': (e,t) ->
-		if e.which is 13
-			id = Session.get 'commentID'
-			Comment(e,t,id)
-
-	'click .deletecomment': (e,t) ->
-		cmt = this.toString()
-		id = Session.get 'commentID'
-		comments.update id, {$pull: {comments: cmt}}
-}
-
 Template.list.preserve {
 	'input.add'
 }
 
+# CONFIGS
 
 Accounts.config({
 	forbidClientAccountCreation: true;
@@ -210,6 +173,8 @@ Accounts.config({
 Accounts.ui.config({
      passwordSignupFields: 'USERNAME_AND_OPTIONAL_EMAIL'
 });
+
+# FUNCTIONS
 
 Array::remove = (e) -> @[t..t] = [] if (t = @indexOf(e)) > -1
 
@@ -269,14 +234,7 @@ Ask = (e,t)->
         }
         document.getElementById('inputquestion').value = ''
 
-Comment = (e,t,id) ->
-    # console.log id
-    newcomment = document.getElementById('inputcomment').value.trim()
-    if newcomment.length is 0
-        console.log 'no Comment'
-    else 
-        comments.update {_id:id}, {$push:{comments: newcomment}}
-        document.getElementById('inputcomment').value = ''
+
 
 adminUser = (userId) ->
     moderate = Meteor.users.findOne({username: "moderator"})
